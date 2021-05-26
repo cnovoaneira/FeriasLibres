@@ -1,0 +1,41 @@
+---
+title: "Ferias"
+author: "Claudia Novoa"
+date: "5/25/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(summarytools)
+st_options(
+  plain.ascii = FALSE, 
+  style = "rmarkdown",
+  dfSummary.style = "grid",
+  dfSummary.valid.col = FALSE,
+  dfSummary.graph.magnif = .52,
+  tmp.img.dir = "/tmp",
+  headings = FALSE,
+  dfSummary.na.col= FALSE )
+```
+
+## Estudio mercado ilícito en ferias libres
+
+```{r data, include=FALSE}
+setwd("./ferias_libres_regi_n_metropolitana")
+#install.packages("rgdal")
+library(rgdal)
+map<- readOGR(dsn= ".", layer="ferias_libres_regi_n_metropolitana")
+#install.packages("sf")
+library(sf)
+shape<-read_sf(dsn = ".", layer = "ferias_libres_regi_n_metropolitana")
+```
+
+## Ferias libres por comuna en la Región Metropolitana
+
+
+```{r comunas,results='asis', echo=FALSE}
+summarytools::freq(shape$COMUNA,style = "rmarkdown", order = "freq", justify = "center", headings = FALSE, report.nas = FALSE, decimal.mark = ",")
+
+```
+
